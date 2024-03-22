@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+  minio:
+    container_name: minio
+    hostname: minio
+    image: minio/minio
+    restart: unless-stopped
+    command: server /data --console-address ":9002"
+    ports:
+      - "9000:9000"
+      - "9002:9002"
+    env_file:
+      - minio.env
+    volumes:
+      - ./minio_data:/data
+    networks:
+      - minio_stack
+networks:
+  minio_stack:
+volumes:
+  minio_data:
